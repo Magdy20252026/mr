@@ -178,15 +178,14 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
             <?php elseif (!empty($stats['blocked'])): ?>
               ⛔ انتهت عدد المشاهدات المسموحة لهذا الفيديو، ولن يتم تشغيله مرة أخرى.
             <?php else: ?>
-              يتم حجب الفيديو افتراضيًا للحماية، ولن يظهر إلا بعد فتح المشغل المحمي من طبقة الأمان داخل الصفحة. على الموبايل داخل التطبيق يمكن التشغيل مباشرة، بينما يدعم المتصفح وضع العرض الآمن بملء الشاشة عند الحاجة.
+            يتم تجهيز الفيديو داخل الصفحة مباشرة، مع إظهار اسم الطالب وكوده كعلامة مائية متحركة أثناء التشغيل.
             <?php endif; ?>
           </div>
         </div>
         <div class="acc-playerOverlay">
-          <span class="acc-playerOverlay__chip"><?php echo h($studentWatermark); ?></span>
+          <span class="acc-playerOverlay__chip acc-playerOverlay__chip--one"><?php echo h($studentWatermark); ?></span>
+          <span class="acc-playerOverlay__chip acc-playerOverlay__chip--two"><?php echo h($studentWatermark); ?></span>
         </div>
-        <div class="acc-playerInteractionShield" id="lecturePlayerInteractionShield" aria-hidden="true" hidden></div>
-        <div class="acc-playerProtectionMask" aria-hidden="true"></div>
         <div class="acc-platformControls" id="lecturePlayerControls" hidden>
           <div class="acc-platformControls__group acc-platformControls__group--actions">
             <button class="acc-modal-btn acc-modal-btn--primary acc-platformControls__iconBtn" type="button" id="lecturePlayerCtrlPlayPause" aria-label="تشغيل أو إيقاف الفيديو" disabled>▶️ تشغيل</button>
@@ -216,14 +215,6 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
             </select>
           </div>
         </div>
-        <div class="acc-captureShield" id="lectureCaptureShield" role="status" aria-live="polite">
-          <div class="acc-captureShield__content">
-            <div class="acc-captureShield__text" id="lectureCaptureShieldText">⚫️ تم تعتيم المشغل لحماية المحتوى أثناء محاولة تصوير الشاشة.</div>
-            <button class="acc-modal-btn acc-modal-btn--primary acc-captureShield__action" type="button" id="lectureCaptureShieldAction">
-              🔓 فتح المشغل المحمي
-            </button>
-          </div>
-        </div>
       </div>
 
       <div class="acc-playerNotice" id="lecturePlayerNotice">
@@ -232,7 +223,7 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
         <?php elseif (!empty($stats['blocked'])): ?>
           ⛔ لا يمكن تشغيل هذا الفيديو لأن عدد المشاهدات المسموحة انتهى.
         <?php else: ?>
-          🔒 هذه الصفحة محمية: الفيديو يفتح من طبقة الحماية فقط. داخل تطبيق الطالب يمكن التشغيل مباشرة مع تفعيل ملء الشاشة اختياريًا، بينما يدعم المتصفح وضع العرض الآمن بملء الشاشة، وتبقى حماية فقدان التركيز الصارمة على الكمبيوتر.
+          ℹ️ يعرض المشغل اسم الطالب وكوده كعلامة مائية متحركة داخل الفيديو، وتستمر العلامة المائية أيضًا عند تكبير المشغل.
         <?php endif; ?>
       </div>
     </section>
@@ -281,11 +272,6 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
   var ctrlVolumeInput = document.getElementById('lecturePlayerCtrlVolume');
   var ctrlQualitySelect = document.getElementById('lecturePlayerCtrlQuality');
   var ctrlSpeedSelect = document.getElementById('lecturePlayerCtrlSpeed');
-  var captureShield = document.getElementById('lectureCaptureShield');
-  var captureShieldText = document.getElementById('lectureCaptureShieldText');
-  var captureShieldActionBtn = document.getElementById('lectureCaptureShieldAction');
-  var playerInteractionShield = document.getElementById('lecturePlayerInteractionShield');
-
   var activeWatchToken = '';
   var countedToken = '';
   var heartbeatHandle = 0;
@@ -294,7 +280,6 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
   var progressBaseStartedAt = 0;
   var requestInFlight = false;
   var protectedPageClosed = false;
-  var devtoolsDetectionStrikes = 0;
   var controlsHideHandle = 0;
   var lastImmersiveWakeAt = 0;
   var youtubePlayer = null;
@@ -313,38 +298,17 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
   const immersiveControlsAutoHideDelayMs = 1800;
   const immersiveControlsWakeThrottleMs = 180;
   const youtubeStatePlaying = 1;
-  const captureShieldDurationMs = 5200;
-  const captureShieldMinHoldMs = 3200;
-  const captureShieldDebounceMs = 350;
-  const blurCheckDelayMs = 120;
   const fullscreenActivationDelayMs = 220;
   const mobileSecureStateResizeDebounceMs = 180;
   const mobileLandscapeLockRetryMs = 220;
   const mobileLandscapeLockRetryCount = 4;
-  const mobileViewportOverlayThresholdPx = 20;
-  const mobileViewportOffsetThresholdPx = 2;
-  const mobileViewportBaselineShrinkThresholdPx = 12;
-  const mobileSecureStatePollIntervalMs = 320;
   const nativeStudentAppAutoUnlockDelayMs = 120;
-  var captureShieldHandle = 0;
-  var captureShieldVisibleUntil = 0;
-  var lastCaptureShieldTriggerAt = 0;
-  var captureShieldLocked = false;
-  var captureShieldHeldIndefinitely = false;
   var fullscreenUnlockHandle = 0;
   var mobileSecureStateResizeHandle = 0;
   var mobileLandscapeLockHandle = 0;
-  var mobileSecureStatePollHandle = 0;
   var mobileSecureViewportSnapshot = null;
   var mobileSecureStateWasSecure = null;
   var nativeStudentAppLandscapeModeActive = false;
-  var initialShieldMessage = '🔒 الفيديو محجوب افتراضيًا للحماية. اضغط على زر فتح المشغل المحمي لعرض الفيديو داخل الصفحة الآمنة.';
-  var hiddenShieldMessage = '⚫️ تم تعتيم المشغل تلقائيًا لحماية المحتوى عند محاولة تصوير الشاشة أو مغادرة الصفحة. افتح المشغل المحمي يدويًا للمتابعة.';
-  var blurShieldMessage = '⚫️ تم تعتيم المشغل تلقائيًا لحماية المحتوى عند محاولة تصوير الشاشة أو سحب التركيز من نافذة المشغل. افتح المشغل المحمي يدويًا للمتابعة.';
-  var recordShieldMessage = '⚫️ تم تعتيم المشغل تلقائيًا لحماية المحتوى عند محاولة تصوير أو تسجيل الشاشة. افتح المشغل المحمي يدويًا للمتابعة.';
-  var mobileExitShieldMessage = '🔒 تم إعادة حجب الفيديو بعد الخروج من العرض الآمن على هذا الجهاز. اضغط على فتح المشغل المحمي للمتابعة.';
-  var mobileSecureStateShieldMessage = '🔒 على الموبايل يجب إبقاء الفيديو داخل وضع عرض آمن وبدون شريط إشعارات أو أي طبقة نظام فوقه. أعد المشغل إلى الوضع الآمن ثم افتح المشغل المحمي.';
-  var mobileFullscreenRejectionShieldMessage = '🔒 لم يتم تفعيل ملء الشاشة الآمن على هذا الجهاز، لذلك بقي الفيديو محجوبًا. اسمح بملء الشاشة أو استخدم متصفحًا يدعمها.';
   var html5DefaultQualityLabel = 'افتراضي';
 
   function ensureValidHalfSeconds(nextValue) {
@@ -363,7 +327,7 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
     surface.innerHTML = '<div class="acc-playerPlaceholder">' + message + '</div>';
     if (playerStage && playerStage.classList) playerStage.classList.remove('acc-playerStage--platformControls');
     if (platformControls) platformControls.hidden = true;
-    setYoutubeInteractionShieldEnabled(false);
+    clearYoutubeInteractionBlock();
   }
 
   function mountPlayerHtml(html) {
@@ -422,10 +386,9 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
     });
   }
 
-  function setYoutubeInteractionShieldEnabled(enabled) {
-    if (!playerInteractionShield || !playerStage || !playerStage.classList) return;
-    playerInteractionShield.hidden = !enabled;
-    playerStage.classList.toggle('acc-playerStage--youtubeInteractionBlocked', !!enabled);
+  function clearYoutubeInteractionBlock() {
+    if (!playerStage || !playerStage.classList) return;
+    playerStage.classList.remove('acc-playerStage--youtubeInteractionBlocked');
   }
 
   function setPlayPauseLabel(isPlaying) {
@@ -433,50 +396,10 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
     ctrlPlayPauseBtn.textContent = isPlaying ? '⏸️ إيقاف' : '▶️ تشغيل';
   }
 
-  function hideCaptureShield(force) {
-    if (!captureShield) return;
-    if (force && fullscreenUnlockHandle) {
+  function clearFullscreenUnlockTimer() {
+    if (fullscreenUnlockHandle) {
       window.clearTimeout(fullscreenUnlockHandle);
       fullscreenUnlockHandle = 0;
-    }
-    if (captureShieldLocked && !force) return;
-    if (captureShieldHeldIndefinitely && !force) return;
-    if (!force && Date.now() < captureShieldVisibleUntil) return;
-    if (force) {
-      captureShieldLocked = false;
-      captureShieldHeldIndefinitely = false;
-      captureShieldVisibleUntil = 0;
-    }
-    captureShield.classList.remove('acc-captureShield--active', 'acc-captureShield--locked');
-    if (playerStage && playerStage.classList) playerStage.classList.remove('acc-playerStage--captureBlocked');
-  }
-
-  function setCaptureShieldMessage(reason) {
-    if (captureShieldText) {
-      captureShieldText.textContent = reason;
-      return;
-    }
-    if (captureShield) captureShield.textContent = reason;
-  }
-
-  function setCaptureShieldLocked(reason, options) {
-    if (!captureShield || !playerStage) return;
-    options = options || {};
-    if (captureShieldHandle) {
-      window.clearTimeout(captureShieldHandle);
-      captureShieldHandle = 0;
-    }
-    captureShieldLocked = true;
-    captureShieldHeldIndefinitely = true;
-    setCaptureShieldMessage(reason || initialShieldMessage);
-    captureShieldVisibleUntil = 0;
-    captureShield.classList.add('acc-captureShield--active', 'acc-captureShield--locked');
-    playerStage.classList.add('acc-playerStage--captureBlocked');
-    if (captureShieldActionBtn) {
-      captureShieldActionBtn.disabled = !!options.disableAction;
-    }
-    if (youtubePlayer) {
-      try { youtubePlayer.pauseVideo(); } catch(e) {}
     }
   }
 
@@ -585,12 +508,6 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
     );
   }
 
-  function hasDocumentFocus() {
-    if (typeof document.hasFocus === 'function') return document.hasFocus();
-    if (typeof window.hasFocus === 'function') return window.hasFocus();
-    return false;
-  }
-
   function getMobileViewportMetrics() {
     var viewport = window.visualViewport || null;
     var viewportWidth = parseFloat((viewport && viewport.width) || window.innerWidth || 0);
@@ -611,56 +528,6 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
       return;
     }
     mobileSecureViewportSnapshot = getMobileViewportMetrics();
-  }
-
-  function getViewportMajorMinorDimensions(metrics) {
-    return {
-      layoutMajor: Math.max(metrics.layoutWidth, metrics.layoutHeight),
-      layoutMinor: Math.min(metrics.layoutWidth, metrics.layoutHeight),
-      viewportMajor: Math.max(metrics.viewportWidth, metrics.viewportHeight),
-      viewportMinor: Math.min(metrics.viewportWidth, metrics.viewportHeight)
-    };
-  }
-
-  function hasMobileViewportOverlay() {
-    if (!isLikelyMobilePlayback()) return false;
-    var metrics = getMobileViewportMetrics();
-    var widthGap = metrics.layoutWidth > 0 && metrics.viewportWidth > 0
-      ? Math.abs(metrics.layoutWidth - metrics.viewportWidth)
-      : 0;
-    var heightGap = metrics.layoutHeight > 0 && metrics.viewportHeight > 0
-      ? Math.abs(metrics.layoutHeight - metrics.viewportHeight)
-      : 0;
-    if (
-      widthGap > mobileViewportOverlayThresholdPx ||
-      heightGap > mobileViewportOverlayThresholdPx ||
-      metrics.offsetTop > mobileViewportOffsetThresholdPx ||
-      metrics.offsetLeft > mobileViewportOffsetThresholdPx
-    ) {
-      return true;
-    }
-    if (!mobileSecureViewportSnapshot) return false;
-    var baselineDimensions = getViewportMajorMinorDimensions(mobileSecureViewportSnapshot);
-    var currentDimensions = getViewportMajorMinorDimensions(metrics);
-
-    return (
-      baselineDimensions.layoutMajor - currentDimensions.layoutMajor > mobileViewportBaselineShrinkThresholdPx ||
-      baselineDimensions.layoutMinor - currentDimensions.layoutMinor > mobileViewportBaselineShrinkThresholdPx ||
-      baselineDimensions.viewportMajor - currentDimensions.viewportMajor > mobileViewportBaselineShrinkThresholdPx ||
-      baselineDimensions.viewportMinor - currentDimensions.viewportMinor > mobileViewportBaselineShrinkThresholdPx
-    );
-  }
-
-  function hasMobileSecurePlaybackState() {
-    if (isNativeStudentAppPlayback()) {
-      if (document.visibilityState === 'hidden') return false;
-      if (hasMobileViewportOverlay()) return false;
-      return true;
-    }
-    if (!isStageFullscreenActive()) return false;
-    if (document.visibilityState === 'hidden') return false;
-    if (hasMobileViewportOverlay()) return false;
-    return true;
   }
 
   function needsMobileLandscapeViewportFallback() {
@@ -699,79 +566,10 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
     }, mobileLandscapeLockRetryMs);
   }
 
-  function hasSecurePlaybackFocus() {
-    if (isLikelyMobilePlayback()) return hasMobileSecurePlaybackState();
-    if (document.visibilityState === 'hidden') return false;
-    if (!hasDocumentFocus()) return false;
-    return true;
-  }
-
-  function securePlaybackLockReason() {
-    if (isLikelyMobilePlayback()) {
-      return hasMobileSecurePlaybackState() ? '' : mobileSecureStateShieldMessage;
-    }
-    if (document.visibilityState === 'hidden') return hiddenShieldMessage;
-    if (!hasDocumentFocus()) return blurShieldMessage;
-    return '';
-  }
-
-  function enforceSecurePlaybackState(reason, noticeText) {
-    var lockReason = reason || securePlaybackLockReason();
-    if (!lockReason) return true;
-    setCaptureShieldLocked(lockReason);
-    if (noticeText) updateNotice(noticeText, true);
-    sendProgress('heartbeat');
-    return false;
-  }
-
-  function evaluateMobileSecurePlaybackState() {
-    if (protectedPageClosed || videoState.isBlocked || !playbackBootstrapped || !isLikelyMobilePlayback()) {
-      mobileSecureStateWasSecure = null;
-      return true;
-    }
-
-    var securePlaybackState = hasMobileSecurePlaybackState();
-    if (securePlaybackState) {
-      mobileSecureStateWasSecure = true;
-      syncMobileSecureViewportSnapshot();
-      return true;
-    }
-
-    if (mobileSecureStateWasSecure === false && captureShieldLocked) return false;
-    mobileSecureStateWasSecure = false;
-    var mobileViewportOverlayDetected = hasMobileViewportOverlay();
-    var mobileViewportNotice = mobileViewportOverlayDetected
-      ? '🔒 تم اكتشاف شريط إشعارات أو طبقة نظام فوق الفيديو، لذلك تمت إعادة حجب الفيديو حتى يعود العرض الآمن الكامل.'
-      : '🔒 تغيّرت حالة العرض على الموبايل، لذلك تمت إعادة حجب الفيديو حتى يعود الوضع الآمن المناسب.';
-    return enforceSecurePlaybackState(mobileViewportOverlayDetected ? mobileSecureStateShieldMessage : mobileExitShieldMessage, mobileViewportNotice);
-  }
-
-  function ensureMobileSecureStatePolling() {
-    if (mobileSecureStatePollHandle) return;
-    mobileSecureStatePollHandle = window.setInterval(function(){
-      if (!isStageFullscreenActive()) {
-        if (!isLikelyMobilePlayback() || protectedPageClosed || videoState.isBlocked || !playbackBootstrapped) {
-          mobileSecureStateWasSecure = null;
-        }
-        return;
-      }
-      evaluateMobileSecurePlaybackState();
-    }, mobileSecureStatePollIntervalMs);
-  }
-
   function unlockProtectedPlayback() {
     if (videoState.isBlocked) return;
-    if (!hasSecurePlaybackFocus()) {
-      var secureReason = securePlaybackLockReason() || '🔒 أعد الصفحة إلى الواجهة أولًا ثم افتح المشغل المحمي.';
-      setCaptureShieldLocked(secureReason);
-      updateNotice(isLikelyMobilePlayback()
-        ? '🔒 على الموبايل يجب أن يبقى الفيديو داخل وضع آمن قبل فتح المشغل.'
-        : '🔒 يجب أن تبقى الصفحة في الواجهة قبل فتح المشغل المحمي.', true);
-      return;
-    }
-
-    hideCaptureShield(true);
-    updateNotice('⏳ جاري تجهيز المشغل المحمي داخل الصفحة الآمنة...', false);
+    clearFullscreenUnlockTimer();
+    updateNotice('⏳ جاري تجهيز الفيديو...', false);
     if (!playbackBootstrapped) {
       startPlayback();
       return;
@@ -780,48 +578,7 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
     if (youtubePlayer) {
       try { youtubePlayer.pauseVideo(); } catch(e) {}
     }
-    updateNotice('✅ تم فتح المشغل المحمي. شغّل الفيديو من زر التشغيل داخل المشغل.', false);
-  }
-
-  function triggerCaptureShield(reason) {
-    if (!captureShield || !playerStage) return;
-    if (captureShieldHandle) {
-      window.clearTimeout(captureShieldHandle);
-      captureShieldHandle = 0;
-    }
-    captureShieldLocked = false;
-    captureShieldHeldIndefinitely = false;
-    if (captureShieldActionBtn) captureShieldActionBtn.disabled = false;
-    captureShield.classList.remove('acc-captureShield--locked');
-    if (reason) setCaptureShieldMessage(reason);
-    captureShieldVisibleUntil = Date.now() + captureShieldMinHoldMs;
-    captureShield.classList.add('acc-captureShield--active');
-    playerStage.classList.add('acc-playerStage--captureBlocked');
-    if (youtubePlayer) {
-      try { youtubePlayer.pauseVideo(); } catch(e) {}
-    }
-    captureShieldHandle = window.setTimeout(function(){
-      hideCaptureShield();
-      if (playerStage && playerStage.classList) playerStage.classList.remove('acc-playerStage--captureBlocked');
-    }, captureShieldDurationMs);
-  }
-
-  function isCaptureShortcutEvent(e) {
-    var key = String((e && e.key) || '').toLowerCase();
-    if (!key) return false;
-    if (key === 'printscreen' || key === 'snapshot') return true;
-    if (e && e.metaKey && e.shiftKey && (key === '3' || key === '4' || key === '5' || key === 's')) return true;
-    if (e && e.ctrlKey && e.shiftKey && (key === 's' || key === 'printscreen')) return true;
-    if (e && e.altKey && key === 'printscreen') return true;
-    return false;
-  }
-
-  function triggerCaptureShieldAttempt(reason) {
-    var now = Date.now();
-    if (now - lastCaptureShieldTriggerAt < captureShieldDebounceMs) return;
-    lastCaptureShieldTriggerAt = now;
-    triggerCaptureShield(reason);
-    sendProgress('heartbeat');
+    updateNotice('✅ الفيديو جاهز. شغّل الفيديو من زر التشغيل داخل المشغل.', false);
   }
 
   function setPlatformControlsVisible(visible) {
@@ -1408,18 +1165,18 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
         var isYoutube = mountedFrame && /youtube(?:-nocookie)?\.com/i.test(String(mountedFrame.src || ''));
         if (isYoutube || String(videoState.videoType || '').toLowerCase() === 'youtube') {
           html5Player = null;
-          setYoutubeInteractionShieldEnabled(true);
+          clearYoutubeInteractionBlock();
           initYoutubePlatformControls(mountedFrame);
         } else if (mountedVideo) {
           youtubePlayer = null;
           stopYoutubeTimeTicker();
-          setYoutubeInteractionShieldEnabled(false);
+          clearYoutubeInteractionBlock();
           initHtml5PlatformControls(mountedVideo);
         } else {
           youtubePlayer = null;
           html5Player = null;
           stopYoutubeTimeTicker();
-          setYoutubeInteractionShieldEnabled(false);
+          clearYoutubeInteractionBlock();
           setPlatformControlsVisible(false);
           setPlatformControlsEnabled(false);
         }
@@ -1431,34 +1188,6 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
       renderPlaceholder('❌ حدث خطأ أثناء الاتصال بالسيرفر.');
       updateNotice('❌ حدث خطأ أثناء تجهيز المشغل.', true);
     });
-  }
-
-  function closeProtectedPage(reason) {
-    if (protectedPageClosed) return;
-    protectedPageClosed = true;
-    stopProgressTimers();
-    unlockMobileLandscapeOrientation();
-    nativeStudentAppLandscapeModeActive = false;
-    syncMobileLandscapePresentation();
-    if (mobileSecureStatePollHandle) {
-      window.clearInterval(mobileSecureStatePollHandle);
-      mobileSecureStatePollHandle = 0;
-    }
-    if (fullscreenUnlockHandle) {
-      window.clearTimeout(fullscreenUnlockHandle);
-      fullscreenUnlockHandle = 0;
-    }
-    setCaptureShieldLocked(reason, {disableAction:true});
-    updateNotice(reason, true);
-    renderPlaceholder(reason);
-    if (fullscreenBtn) fullscreenBtn.disabled = true;
-
-    var exitFullscreenPromise = exitSecureFullscreen();
-    if (exitFullscreenPromise && typeof exitFullscreenPromise.catch === 'function') {
-      exitFullscreenPromise.catch(function(){});
-    }
-
-    window.location.replace('account_lecture.php?lecture_id=' + lectureId);
   }
 
   if (fullscreenBtn && playerStage) {
@@ -1509,13 +1238,11 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
         syncMobileSecureViewportSnapshot();
         syncMobileLandscapePresentation();
         unlockMobileLandscapeOrientation();
-        setCaptureShieldLocked(mobileExitShieldMessage);
-        updateNotice('🔒 تمت إعادة حماية الفيديو بعد الخروج من العرض الآمن على الموبايل. افتح المشغل المحمي للمتابعة.', true);
       } else if (fullscreenElement && isLikelyMobilePlayback() && !protectedPageClosed && !videoState.isBlocked) {
         mobileSecureStateWasSecure = true;
         syncMobileSecureViewportSnapshot();
         scheduleMobileLandscapeLock(mobileLandscapeLockRetryCount);
-        updateNotice('✅ تم تفعيل العرض الآمن بملء الشاشة على هذا الجهاز. سيعمل الفيديو تلقائيًا بأفضل وضع أفقي متاح أثناء التشغيل، وإن تعذر ذلك فسيستمر العرض الآمن بالشكل المناسب للجهاز.', false);
+        updateNotice('✅ تم تكبير المشغل، وستستمر العلامة المائية المتحركة أثناء العرض.', false);
       } else {
         syncMobileLandscapePresentation();
       }
@@ -1670,64 +1397,9 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
     }
   });
 
-  if (captureShieldActionBtn) {
-    captureShieldActionBtn.addEventListener('click', function(e){
-      e.preventDefault();
-      if (isLikelyMobilePlayback() && playerStage && !isStageFullscreenActive()) {
-        if (isNativeStudentAppPlayback()) {
-          if (fullscreenUnlockHandle) window.clearTimeout(fullscreenUnlockHandle);
-          fullscreenUnlockHandle = window.setTimeout(function(){
-            fullscreenUnlockHandle = 0;
-            mobileSecureStateWasSecure = true;
-            syncMobileSecureViewportSnapshot();
-            syncMobileLandscapePresentation();
-            unlockProtectedPlayback();
-          }, fullscreenActivationDelayMs);
-          return;
-        }
-        var requestFullscreen = requestSecureFullscreen(playerStage);
-        if (typeof requestFullscreen !== 'function') {
-          setCaptureShieldLocked(mobileFullscreenRejectionShieldMessage);
-          updateNotice('🔒 هذا المتصفح لا يفعّل ملء الشاشة الآمن للموبايل، لذلك سيبقى الفيديو محجوبًا للحماية.', true);
-          return;
-        }
-        try {
-          var fullscreenResult = requestFullscreen.call(playerStage);
-          var unlockWhenFullscreenReady = function(){
-            if (fullscreenUnlockHandle) window.clearTimeout(fullscreenUnlockHandle);
-            fullscreenUnlockHandle = window.setTimeout(function(){
-              fullscreenUnlockHandle = 0;
-              if (!isStageFullscreenActive()) {
-                setCaptureShieldLocked(mobileSecureStateShieldMessage);
-                updateNotice('🔒 لم يدخل المشغل وضع ملء الشاشة الآمن، لذلك بقي الفيديو محجوبًا.', true);
-                return;
-              }
-              scheduleMobileLandscapeLock(mobileLandscapeLockRetryCount);
-              unlockProtectedPlayback();
-            }, fullscreenActivationDelayMs);
-          };
-          if (fullscreenResult && typeof fullscreenResult.then === 'function') {
-            fullscreenResult.then(unlockWhenFullscreenReady).catch(function(){
-              setCaptureShieldLocked(mobileFullscreenRejectionShieldMessage);
-              updateNotice('🔒 تم رفض أو إلغاء ملء الشاشة، لذلك بقي الفيديو محجوبًا للحماية.', true);
-            });
-            return;
-          }
-          unlockWhenFullscreenReady();
-          return;
-        } catch(e) {
-          setCaptureShieldLocked(mobileFullscreenRejectionShieldMessage);
-          updateNotice('🔒 تعذر تشغيل ملء الشاشة الآمن على هذا الجهاز، لذلك بقي الفيديو محجوبًا.', true);
-          return;
-        }
-      }
-      unlockProtectedPlayback();
-    });
-  }
-
   if (!videoState.isBlocked) {
     if (isNativeStudentAppPlayback()) {
-      hideCaptureShield(true);
+      clearFullscreenUnlockTimer();
       updateNotice('⏳ جاري تجهيز الفيديو تلقائيًا داخل تطبيق الطالب...', false);
       window.setTimeout(function(){
         if (isNativeStudentAppPlayback() && !protectedPageClosed && !playbackBootstrapped && !videoState.isBlocked) {
@@ -1735,85 +1407,20 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
         }
       }, nativeStudentAppAutoUnlockDelayMs);
     } else {
-      setCaptureShieldLocked(initialShieldMessage);
-      updateNotice('🔒 الفيديو محجوب افتراضيًا للحماية. اضغط على "فتح المشغل المحمي" من داخل طبقة الحماية لبدء التجهيز.', false);
+      clearFullscreenUnlockTimer();
+      updateNotice('⏳ جاري تجهيز الفيديو داخل الصفحة...', false);
+      startPlayback();
     }
-  } else if (videoState.isAssessmentLocked) {
-    setCaptureShieldLocked('🔒 الفيديو مقفل حتى يتم تسليم المحتوى المرتبط به.');
   }
   syncFullscreenToggleLabels();
-
-  document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
-  document.addEventListener('mousedown', function(e){ if (e.button === 2) e.preventDefault(); }, true);
-  document.addEventListener('keydown', function(e){
-    var key = String(e.key || '').toLowerCase();
-    if (isCaptureShortcutEvent(e)) {
-      triggerCaptureShieldAttempt('⚫️ تم تعتيم المشغل لحماية المحتوى أثناء محاولة تصوير الشاشة.');
-    }
-    var blocked =
-      key === 'f12' ||
-      (e.ctrlKey && e.shiftKey && (key === 'i' || key === 'j' || key === 'c')) ||
-      (e.ctrlKey && key === 'u');
-    if (blocked) {
-      e.preventDefault();
-      closeProtectedPage('⛔ تم الرجوع إلى صفحة تفاصيل المحاضرة لحماية المحتوى عند محاولة فتح أدوات المطور.');
-    }
-  }, true);
-  document.addEventListener('keyup', function(e){
-    if (!isCaptureShortcutEvent(e)) return;
-    triggerCaptureShieldAttempt('⚫️ تم تعتيم المشغل لحماية المحتوى أثناء محاولة تصوير الشاشة.');
-  }, true);
-
-  document.addEventListener('visibilitychange', function(){
-    if (document.visibilityState === 'hidden') {
-      setCaptureShieldLocked(hiddenShieldMessage);
-      sendProgress('heartbeat');
-      return;
-    }
-    if (captureShieldLocked && !protectedPageClosed && !videoState.isBlocked) {
-      updateNotice('🔒 عادت الصفحة إلى الواجهة، لكن الفيديو سيبقى محجوبًا حتى تضغط على "فتح المشغل المحمي" مرة أخرى.', false);
-    }
-  });
-  window.addEventListener('blur', function(){
-    if (isLikelyMobilePlayback()) return;
-    window.setTimeout(function(){
-      setCaptureShieldLocked(document.visibilityState === 'hidden' ? recordShieldMessage : blurShieldMessage);
-      sendProgress('heartbeat');
-    }, blurCheckDelayMs);
-  });
-  window.addEventListener('pagehide', function(){
-    if (protectedPageClosed || videoState.isBlocked) return;
-    unlockMobileLandscapeOrientation();
-    setCaptureShieldLocked('⚫️ تمت إعادة حجب المشغل مباشرة عند مغادرة الصفحة أو إخفائها لحماية الفيديو.');
-    sendProgress('heartbeat');
-  });
-  window.addEventListener('pageshow', function(){
-    if (protectedPageClosed || videoState.isBlocked || !playbackBootstrapped) return;
-    if (!hasSecurePlaybackFocus()) {
-      enforceSecurePlaybackState('', isLikelyMobilePlayback()
-        ? '🔒 عاد المشغل لكنه سيبقى محجوبًا حتى يعود الوضع الآمن المناسب على الموبايل.'
-        : '🔒 عاد المشغل لكنه سيبقى محجوبًا حتى تعود الصفحة إلى الواجهة.');
-    }
-  });
-  window.addEventListener('focus', function(){
-    if (isLikelyMobilePlayback()) return;
-    if (protectedPageClosed || videoState.isBlocked || !playbackBootstrapped) return;
-    if (!hasSecurePlaybackFocus()) {
-      enforceSecurePlaybackState('', isLikelyMobilePlayback()
-        ? '🔒 على الموبايل يجب إبقاء الفيديو داخل وضع آمن قبل متابعة التشغيل.'
-        : '🔒 يجب إبقاء الصفحة في الواجهة قبل متابعة الفيديو.');
-    }
-  });
   function handleMobileSecureStateViewportChange() {
     if (protectedPageClosed || videoState.isBlocked || !playbackBootstrapped || !isLikelyMobilePlayback()) return;
-    if (hasMobileViewportOverlay()) setCaptureShieldLocked(mobileSecureStateShieldMessage);
     window.clearTimeout(mobileSecureStateResizeHandle);
     mobileSecureStateResizeHandle = window.setTimeout(function(){
       mobileSecureStateResizeHandle = 0;
       syncMobileLandscapePresentation();
-      if (hasMobileSecurePlaybackState()) syncMobileSecureViewportSnapshot();
+      if (isFullscreenPresentationActive()) syncMobileSecureViewportSnapshot();
       if (isStageFullscreenActive()) scheduleMobileLandscapeLock(mobileLandscapeLockRetryCount);
-      evaluateMobileSecurePlaybackState();
     }, mobileSecureStateResizeDebounceMs);
   }
 
@@ -1825,8 +1432,6 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
       window.visualViewport.addEventListener(evt, handleMobileSecureStateViewportChange);
     });
   }
-  ensureMobileSecureStatePolling();
-
   window.addEventListener('beforeunload', function(){
     unlockMobileLandscapeOrientation();
     if (!activeWatchToken || countedToken === activeWatchToken) return;
