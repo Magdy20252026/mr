@@ -89,7 +89,6 @@ html[data-theme="dark"] .brand__logo{ background:rgba(255,255,255,.88); }
   overflow:hidden;
   text-overflow:ellipsis;
   max-width:320px;
-  color:inherit;
 }
 
 /* Theme switch */
