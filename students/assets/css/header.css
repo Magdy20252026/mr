@@ -84,13 +84,13 @@ html[data-theme="dark"] .brand__logo{ background:rgba(255,255,255,.88); }
 }
 
 .brand__name{
-  font-size:19px;
+  font-size:18px;
   line-height:1.25;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
   max-width:320px;
-  color:var(--primary-strong);
+  color:inherit;
 }
 
 /* Theme switch */
