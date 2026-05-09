@@ -7,8 +7,9 @@
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 18px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-strong);
   padding: 14px;
+  backdrop-filter: blur(18px);
 }
 
 .acc-courseHero__grid{
@@ -24,7 +25,8 @@
   object-fit: cover;
   border-radius: 16px;
   border: 1px solid var(--border);
-  background: rgba(0,0,0,.02);
+  background: var(--surface-soft);
+  box-shadow: var(--shadow-soft);
 }
 
 .acc-courseHero__imgFallback{
@@ -34,7 +36,7 @@
   place-items:center;
   border-radius: 16px;
   border: 1px solid var(--border);
-  background: rgba(0,0,0,.02);
+  background: var(--surface-soft);
   font-size: 44px;
   font-weight: 1000;
 }
@@ -65,7 +67,8 @@
   padding: 8px 10px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(0,0,0,.02);
+  background: var(--card-soft);
+  backdrop-filter: blur(10px);
 }
 
 .acc-courseHero__details{
@@ -88,6 +91,7 @@
   border-radius: 18px;
   box-shadow: var(--shadow);
   padding: 12px;
+  backdrop-filter: blur(18px);
 }
 
 .acc-lecture__head{
@@ -109,7 +113,8 @@
   display:grid;
   place-items:center;
   border: 1px solid var(--border);
-  background: rgba(20,86,71,.08);
+  background: var(--surface-strong);
+  color: var(--primary);
 }
 
 .acc-lecture__meta{
@@ -124,7 +129,7 @@
   padding: 8px 10px;
   border: 1px solid var(--border);
   border-radius: 14px;
-  background: rgba(0,0,0,.02);
+  background: var(--card-soft);
 }
 
 .acc-lecture__details{

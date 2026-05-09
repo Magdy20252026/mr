@@ -13,7 +13,8 @@
   padding: 10px 12px;
   border-radius: 14px;
   border: 1px solid var(--border);
-  background: rgba(0,0,0,.02);
+  background: var(--card-soft);
+  backdrop-filter: blur(10px);
 }
 
 .acc-lectureDetails{
@@ -47,6 +48,7 @@
   border: 1px solid var(--border);
   background: var(--card-bg);
   box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
 }
 
 .acc-item__title{ font-weight: 1000; color: var(--text); }
@@ -58,7 +60,8 @@
   display:grid;
   place-items:center;
   border: 1px solid var(--border);
-  background: rgba(20,86,71,.08);
+  background: var(--surface-strong);
+  color: var(--primary);
 }
 
 .acc-itemsList--media{ margin-top: 16px; }
@@ -72,11 +75,11 @@
 
 .acc-item--media:hover{
   transform: translateY(-1px);
-  border-color: rgba(20,86,71,.35);
+  border-color: var(--brand-border);
 }
 
 .acc-item--media.is-active{
-  border-color: rgba(20,86,71,.32);
+  border-color: var(--brand-border);
   box-shadow: 0 12px 34px rgba(20,86,71,.12);
 }
 
@@ -108,15 +111,15 @@
   gap:6px;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(46, 125, 50, .12);
-  color: #145647;
+  background: var(--success-soft-bg);
+  color: var(--success);
   font-weight: 900;
   font-size: .9rem;
 }
 
 .acc-item__badge--danger{
-  background: rgba(143,106,34,.10);
-  color: #8f6a22;
+  background: var(--danger-soft-bg);
+  color: var(--danger);
 }
 
 .acc-playerShell,
@@ -130,9 +133,9 @@
   position: relative;
   border-radius: 22px;
   overflow: hidden;
-  background: #06070d;
+  background: linear-gradient(180deg, #09100f, #040807);
   border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 24px 50px rgba(0,0,0,.22);
+  box-shadow: var(--shadow-strong);
 }
 
 .acc-playerStage{
@@ -235,8 +238,8 @@
 .acc-pdfPlaceholder{
   padding: 18px 20px;
   border-radius: 18px;
-  border: 1px dashed rgba(20,86,71,.35);
-  background: rgba(20,86,71,.08);
+  border: 1px dashed var(--brand-border);
+  background: var(--surface-soft);
   color: var(--text);
   font-weight: 900;
   line-height: 1.9;
