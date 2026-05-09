@@ -315,6 +315,10 @@ body.hero-animate .hero-stats{
 .hero__grid::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg, rgba(20,86,71,.08), transparent 38%), radial-gradient(circle at left bottom, rgba(143,106,34,.10), transparent 32%);}
 .hero__content,.hero__media{position:relative;z-index:1;}
 .hero__small{display:inline-flex;width:fit-content;padding:8px 14px;border-radius:999px;background:var(--brand-weak);}
-.hero__title{max-width:12ch;}
+.hero__title{
+  max-width:none;
+  word-break:normal;
+  overflow-wrap:break-word;
+}
 .hero__imgWrap{box-shadow:0 24px 40px rgba(7,29,23,.18);}
 .hero__imgWrap::before{content:"";position:absolute;inset:10%;border-radius:999px;border:1px dashed rgba(255,255,255,.38);pointer-events:none;}
