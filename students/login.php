@@ -3,7 +3,6 @@
 require __DIR__ . '/inc/db.php';
 require_once __DIR__ . '/inc/platform_settings.php';
 require __DIR__ . '/inc/student_auth.php';
-require __DIR__ . '/inc/device_lock.php';
 
 no_cache_headers();
 student_redirect_if_logged_in('account.php');
@@ -86,8 +85,6 @@ $redirectToAccount = false;
 
 $studentPhone = normalize_phone((string)($_POST['student_phone'] ?? ''));
 $password = (string)($_POST['password'] ?? '');
-$deviceId = (string)($_POST['device_id'] ?? '');
-$deviceName = (string)($_POST['device_name'] ?? '');
 
 $action = (string)($_POST['action'] ?? 'login');
 
@@ -95,7 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($action === 'login') {
     if ($studentPhone === '') $errors[] = 'رقم التليفون مطلوب.';
     if ($password === '') $errors[] = 'كلمة السر مطلوبة.';
-    if ($deviceId === '') $errors[] = 'تعذر التعرف على الجهاز، يرجى تحديث الصفحة والمحاولة مرة أخرى.';
 
     if (!$errors) {
       try {
@@ -113,22 +109,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors[] = 'رقم التليفون أو كلمة السر غير صحيحة.';
           } else {
             $studentId = (int)$st['id'];
-            $deviceCheck = device_lock_check_and_register($pdo, $studentId, $deviceId, $deviceName);
+            $_SESSION['student_id'] = $studentId;
+            $_SESSION['student_name'] = (string)$st['full_name'];
 
-            if (!$deviceCheck['ok']) {
-              if ($deviceCheck['reason'] === 'device_not_allowed') {
-                $errors[] = 'هذا الحساب مرتبط بجهاز آخر بالفعل. لا يمكن تسجيل الدخول من جهاز جديد. يرجى التواصل مع الإدارة لمسح الجهاز القديم.';
-              } else {
-                $errors[] = 'حدث خطأ أثناء التحقق من الجهاز. حاول مرة أخرى.';
-              }
-            } else {
-              $_SESSION['student_id'] = $studentId;
-              $_SESSION['student_name'] = (string)$st['full_name'];
-
-              $toastOk = true;
-              $toastMessage = 'ليك وحشه ياضنايا يلا وخليك مركز معايا  ❤️';
-              $redirectToAccount = true;
-            }
+            $toastOk = true;
+            $toastMessage = 'ليك وحشه ياضنايا يلا وخليك مركز معايا  ❤️';
+            $redirectToAccount = true;
           }
         }
       } catch (Throwable $e) {
@@ -177,9 +163,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" href="assets/css/header.css">
   <link rel="stylesheet" href="assets/css/footer.css">
   <link rel="stylesheet" href="assets/css/register.css">
-
-  <!-- FingerprintJS for stable device fingerprint -->
-  <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@4/dist/fp.min.js"></script>
 
   <title>تسجيل الدخول</title>
 </head>
@@ -235,8 +218,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <form class="auth-form" method="post" autocomplete="off" novalidate id="loginForm">
               <input type="hidden" name="action" value="login">
-              <input type="hidden" name="device_id" id="deviceId" value="">
-              <input type="hidden" name="device_name" id="deviceName" value="">
 
               <label class="field">
                 <span class="label">رقم التليفون</span>
@@ -352,48 +333,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <script>
     (function(){
-      const form = document.getElementById('loginForm');
-      const deviceIdInput = document.getElementById('deviceId');
-      const deviceNameInput = document.getElementById('deviceName');
-
-      function getDeviceName() {
-        const ua = navigator.userAgent;
-        let os = '';
-        if (ua.indexOf('Windows') !== -1) os = 'Windows';
-        else if (ua.indexOf('Mac') !== -1) os = 'Mac';
-        else if (ua.indexOf('Android') !== -1) os = 'Android';
-        else if (ua.indexOf('iPhone') !== -1 || ua.indexOf('iPad') !== -1) os = 'iOS';
-        else os = 'Unknown';
-        let browser = '';
-        if (ua.indexOf('Edg') !== -1) browser = 'Edge';
-        else if (ua.indexOf('Chrome') !== -1 && ua.indexOf('Edg') === -1) browser = 'Chrome';
-        else if (ua.indexOf('Firefox') !== -1) browser = 'Firefox';
-        else if (ua.indexOf('Safari') !== -1 && ua.indexOf('Chrome') === -1) browser = 'Safari';
-        else browser = 'Other';
-        return `${os} - ${browser}`;
-      }
-
-      // Initialize FingerprintJS
-      FingerprintJS.load().then(fp => {
-        fp.get().then(result => {
-          const visitorId = result.visitorId;
-          if (deviceIdInput) deviceIdInput.value = visitorId;
-          if (deviceNameInput) deviceNameInput.value = getDeviceName();
-        });
-      }).catch(err => {
-        console.warn('FingerprintJS failed:', err);
-        // Fallback: use random + device name (will block any new device unless admin clears)
-        if (deviceIdInput) deviceIdInput.value = 'fallback_' + Math.random().toString(36).substring(2);
-        if (deviceNameInput) deviceNameInput.value = getDeviceName();
-      });
-
-      form.addEventListener('submit', function(e) {
-        if (!deviceIdInput.value) {
-          e.preventDefault();
-          alert('جاري تجهيز بيانات الجهاز، يرجى الانتظار ثم إعادة المحاولة.');
-        }
-      });
-
       const ok = <?php echo $toastOk ? 'true' : 'false'; ?>;
       const shouldRedirect = <?php echo $redirectToAccount ? 'true' : 'false'; ?>;
 
