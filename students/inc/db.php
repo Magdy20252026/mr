@@ -6,8 +6,7 @@ date_default_timezone_set(APP_TIMEZONE);
 if (
   !defined('DB_HOST') || DB_HOST === '' ||
   !defined('DB_NAME') || DB_NAME === '' ||
-  !defined('DB_USER') || DB_USER === '' ||
-  !defined('DB_PASS') || DB_PASS === ''
+  !defined('DB_USER') || DB_USER === ''
 ) {
   http_response_code(500);
   error_log('Database configuration is incomplete.');
