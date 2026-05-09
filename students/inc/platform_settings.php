@@ -143,7 +143,7 @@ function get_platform_settings_row(PDO $pdo): array {
       'hero_button_url' => null,
       'hero_teacher_image' => null,
 
-      'hero_stats_bg_text' => 'ENGLISH',
+      'hero_stats_bg_text' => 'العربية',
       'hero_stat_1_value' => null,
       'hero_stat_1_label' => null,
       'hero_stat_2_value' => null,

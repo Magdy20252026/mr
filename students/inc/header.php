@@ -30,7 +30,7 @@ $isLogged = !empty($_SESSION['student_id']);
       <div class="left-pack">
         <a class="brand" href="index.php" aria-label="<?php echo h($platformName); ?>">
           <?php if ($logoUrl): ?>
-            <img class="brand__logo" src="<?php echo h($logoUrl); ?>" alt="Logo">
+            <img class="brand__logo" src="<?php echo h($logoUrl); ?>" alt="شعار المنصة">
           <?php else: ?>
             <span class="brand__logo-fallback" aria-hidden="true"></span>
           <?php endif; ?>
@@ -48,7 +48,7 @@ $isLogged = !empty($_SESSION['student_id']);
       <div class="mobile-center">
         <a class="mobile-center__link" href="index.php" aria-label="<?php echo h($platformName); ?>">
           <?php if ($logoUrl): ?>
-            <img class="mobile-center__logo" src="<?php echo h($logoUrl); ?>" alt="Logo">
+            <img class="mobile-center__logo" src="<?php echo h($logoUrl); ?>" alt="شعار المنصة">
           <?php else: ?>
             <span class="mobile-center__logo-fallback" aria-hidden="true"></span>
           <?php endif; ?>

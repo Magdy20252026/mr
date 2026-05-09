@@ -39,7 +39,7 @@ $hasHero =
 /* =========================
    Stats
    ========================= */
-$heroStatsBgText = trim((string)($row['hero_stats_bg_text'] ?? 'ENGLISH'));
+$heroStatsBgText = trim((string)($row['hero_stats_bg_text'] ?? 'العربية'));
 
 $heroStat1Value = trim((string)($row['hero_stat_1_value'] ?? ''));
 $heroStat1Label = trim((string)($row['hero_stat_1_label'] ?? ''));
@@ -205,7 +205,7 @@ function footer_icon_svg(string $key): string {
           <div class="hero__media">
             <?php if ($heroTeacherImageUrl): ?>
               <div class="hero__imgWrap">
-                <img class="hero__img" src="<?php echo h($heroTeacherImageUrl); ?>" alt="Teacher">
+                <img class="hero__img" src="<?php echo h($heroTeacherImageUrl); ?>" alt="صورة المدرس">
               </div>
             <?php endif; ?>
           </div>
@@ -219,7 +219,7 @@ function footer_icon_svg(string $key): string {
     <section class="hero-stats" aria-label="إحصائيات">
       <div class="container">
         <div class="hero-stats__wrap">
-          <div class="hero-stats__bg" aria-hidden="true"><?php echo h($heroStatsBgText !== '' ? $heroStatsBgText : 'ENGLISH'); ?></div>
+          <div class="hero-stats__bg" aria-hidden="true"><?php echo h($heroStatsBgText !== '' ? $heroStatsBgText : 'العربية'); ?></div>
 
           <div class="hero-stats__card">
             <div class="hero-stats__grid">
@@ -359,7 +359,7 @@ function footer_icon_svg(string $key): string {
 
           <div class="footer__col footer__col--left">
             <?php if ($footerLogoUrl): ?>
-              <img class="footer__logo" src="<?php echo h($footerLogoUrl); ?>" alt="Logo">
+              <img class="footer__logo" src="<?php echo h($footerLogoUrl); ?>" alt="شعار المنصة">
             <?php else: ?>
               <div class="footer__logoFallback" aria-hidden="true"></div>
             <?php endif; ?>

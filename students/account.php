@@ -966,21 +966,21 @@ if ($cssVer === '' || $cssVer === '0') $cssVer = (string)time();
     .acc-stats__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
     .acc-stat{background:var(--card-bg,#fff);border:1px solid var(--border,#e2e8f0);border-radius:16px;padding:18px 14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)}
     .acc-stat__ico{font-size:2em;margin-bottom:6px}
-    .acc-stat__val{font-size:1.7em;font-weight:900;color:var(--accent,#0b63ce)}
+    .acc-stat__val{font-size:1.7em;font-weight:900;color:var(--accent,#145647)}
     .acc-stat__lbl{font-size:.85em;color:var(--muted,#666);margin-top:4px;font-weight:700}
     .acc-pill--link{text-decoration:none;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease}
     .acc-pill--link:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.08)}
     .wallet-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:18px 0}
     .wallet-summary__card{background:var(--card-bg,#fff);border:1px solid var(--border,#e2e8f0);border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
     .wallet-summary__label{color:var(--muted,#666);font-size:.9em;font-weight:800}
-    .wallet-summary__value{margin-top:10px;font-size:1.45em;font-weight:1000;color:var(--accent,#0b63ce)}
+    .wallet-summary__value{margin-top:10px;font-size:1.45em;font-weight:1000;color:var(--accent,#145647)}
     .wallet-history{display:grid;gap:12px}
     .wallet-history__item{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px;border:1px solid var(--border,#e2e8f0);border-radius:16px;background:var(--card-bg,#fff);box-shadow:0 2px 10px rgba(0,0,0,.04)}
     .wallet-history__title{font-size:1.05em;font-weight:1000}
     .wallet-history__meta{margin-top:6px;color:var(--muted,#666);font-size:.92em;font-weight:700;line-height:1.8}
     .wallet-history__amount{white-space:nowrap;font-weight:1000;font-size:1.05em}
     .wallet-history__amount.is-positive{color:#157347}
-    .wallet-history__amount.is-negative{color:#b42318}
+    .wallet-history__amount.is-negative{color:#145647}
     @media (max-width: 980px){ .wallet-summary{grid-template-columns:repeat(2,minmax(0,1fr));} }
     @media (max-width: 640px){
       .wallet-summary{grid-template-columns:1fr;}
@@ -1044,7 +1044,7 @@ if ($cssVer === '' || $cssVer === '0') $cssVer = (string)time();
       <div class="acc-topbar__right">
         <a class="acc-brand" href="account.php?page=home" aria-label="<?php echo h($platformName); ?>">
           <?php if ($logoUrl): ?>
-            <img class="acc-brand__logo" src="<?php echo h($logoUrl); ?>" alt="Logo">
+            <img class="acc-brand__logo" src="<?php echo h($logoUrl); ?>" alt="شعار المنصة">
           <?php else: ?>
             <span class="acc-brand__logoFallback" aria-hidden="true"></span>
           <?php endif; ?>
@@ -1820,7 +1820,7 @@ if ($cssVer === '' || $cssVer === '0') $cssVer = (string)time();
       <div class="footer__grid">
         <div class="footer__col footer__col--left">
           <?php if ($footerLogoUrl): ?>
-            <img class="footer__logo" src="<?php echo h($footerLogoUrl); ?>" alt="Logo">
+            <img class="footer__logo" src="<?php echo h($footerLogoUrl); ?>" alt="شعار المنصة">
           <?php else: ?>
             <div class="footer__logoFallback" aria-hidden="true"></div>
           <?php endif; ?>

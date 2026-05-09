@@ -260,7 +260,7 @@ $effectiveCoursePriceStr = number_format($effectiveCoursePrice, 2);
       <div class="acc-topbar__right">
         <a class="acc-brand" href="account.php?page=platform_courses" aria-label="<?php echo h($platformName); ?>">
           <?php if ($logoUrl): ?>
-            <img class="acc-brand__logo" src="<?php echo h($logoUrl); ?>" alt="Logo">
+            <img class="acc-brand__logo" src="<?php echo h($logoUrl); ?>" alt="شعار المنصة">
           <?php else: ?>
             <span class="acc-brand__logoFallback" aria-hidden="true"></span>
           <?php endif; ?>
@@ -448,7 +448,7 @@ $effectiveCoursePriceStr = number_format($effectiveCoursePrice, 2);
       <div class="footer__grid">
         <div class="footer__col footer__col--left">
           <?php if ($footerLogoUrl): ?>
-            <img class="footer__logo" src="<?php echo h($footerLogoUrl); ?>" alt="Logo">
+            <img class="footer__logo" src="<?php echo h($footerLogoUrl); ?>" alt="شعار المنصة">
           <?php else: ?>
             <div class="footer__logoFallback" aria-hidden="true"></div>
           <?php endif; ?>

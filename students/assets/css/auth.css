@@ -80,12 +80,12 @@ html[data-theme="dark"] .auth__progressBar{
   display:block;
   height:100%;
   width:30%;
-  background: #0b7b7a;
+  background: #145647;
 }
 
 .auth__progressTxt{
   font-weight:1000;
-  color:#0b7b7a;
+  color:#145647;
   font-size: 14px;
   white-space:nowrap;
 }
@@ -123,8 +123,8 @@ html[data-theme="dark"] .auth__logoBox{
   display:grid;
   place-items:center;
   font-size: 26px;
-  background: rgba(142,29,40,.10);
-  color:#8e1d28;
+  background: rgba(20,86,71,.10);
+  color:#145647;
 }
 
 .auth__title{
@@ -150,12 +150,12 @@ html[data-theme="dark"] .auth__logoBox{
   border: 1px solid rgba(0,0,0,.08);
 }
 .auth__alert--error{
-  background: rgba(207,42,55,.10);
-  color: #8e1d28;
+  background: rgba(20,86,71,.10);
+  color: #145647;
 }
 .auth__alert--success{
-  background: rgba(11,123,122,.10);
-  color: #0b7b7a;
+  background: rgba(20,86,71,.10);
+  color: #145647;
 }
 
 .auth__form{
@@ -206,8 +206,8 @@ html[data-theme="dark"] .auth__input{
 }
 
 .auth__input:focus{
-  border-color: rgba(11,123,122,.55);
-  box-shadow: 0 0 0 3px rgba(11,123,122,.20);
+  border-color: rgba(20,86,71,.55);
+  box-shadow: 0 0 0 3px rgba(20,86,71,.20);
 }
 
 .auth__btn{
@@ -218,7 +218,7 @@ html[data-theme="dark"] .auth__input{
   font-weight: 1000;
   cursor:pointer;
 
-  background: #8e1d28;
+  background: #145647;
   color:#fff;
 
   transition: .2s ease;
@@ -235,7 +235,7 @@ html[data-theme="dark"] .auth__input{
   color: var(--muted);
 }
 .auth__link{
-  color: #0b7b7a;
+  color: #145647;
   font-weight: 1000;
   text-decoration:none;
 }

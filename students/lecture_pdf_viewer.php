@@ -108,7 +108,7 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
       <div class="acc-topbar__right">
         <a class="acc-brand" href="account_lecture.php?lecture_id=<?php echo (int)($pdf['lecture_id'] ?? 0); ?>" aria-label="العودة إلى صفحة المحاضرة">
           <?php if ($logoUrl): ?>
-            <img class="acc-brand__logo" src="<?php echo h($logoUrl); ?>" alt="Logo">
+            <img class="acc-brand__logo" src="<?php echo h($logoUrl); ?>" alt="شعار المنصة">
           <?php else: ?>
             <span class="acc-brand__logoFallback" aria-hidden="true"></span>
           <?php endif; ?>
