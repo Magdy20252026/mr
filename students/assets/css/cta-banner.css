@@ -3,14 +3,20 @@
 }
 
 .cta-banner__box{
-  background: #7c1b2b; /* قريب جداً من الصورة */
+  background:
+    radial-gradient(circle at top right, var(--surface-highlight-strong), transparent 24%),
+    radial-gradient(circle at bottom left, var(--page-glow-soft), transparent 24%),
+    linear-gradient(135deg, #112b46, #145647 52%, #1d6b58);
   border-radius: 18px;
   padding: 46px 18px;
 
   text-align: center;
   color: #fff;
 
-  box-shadow: 0 18px 40px rgba(0,0,0,.12);
+  box-shadow: var(--shadow-strong);
+  border:1px solid var(--surface-highlight);
+  position:relative;
+  overflow:hidden;
 }
 
 .cta-banner__title{
@@ -38,11 +44,12 @@
   border-radius: 12px;
   text-decoration: none;
 
-  background: #e7f7fb;  /* زر فاتح مثل الصورة */
-  color: #145647;
+  background: var(--surface-highlight);
+  color: #fff;
 
   font-weight: 1000;
-  border: 2px solid rgba(255,255,255,.30);
+  border: 2px solid var(--surface-highlight-strong);
+  backdrop-filter: blur(10px);
 
   transition: .2s ease;
 }
@@ -50,6 +57,7 @@
 .cta-banner__btn:hover{
   transform: translateY(-1px);
   filter: brightness(1.02);
+  background: var(--surface-highlight-strong);
 }
 
 @media (max-width: 560px){
