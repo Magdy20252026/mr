@@ -310,9 +310,18 @@
 
 .acc-playerOverlay__chip{
   position:absolute;
+}
+
+.acc-playerOverlay__chip--one{
   top: 14px;
   right: 18px;
   animation: playerWatermarkMove 16s linear infinite alternate;
+}
+
+.acc-playerOverlay__chip--two{
+  bottom: 18px;
+  left: 18px;
+  animation: playerWatermarkMoveAlt 18s linear infinite alternate;
 }
 
 .acc-pdfOverlay__chip{
@@ -853,6 +862,11 @@
 @keyframes playerWatermarkMove{
   0%{ transform: translate(0, 0); }
   100%{ transform: translate(-120px, 170px); }
+}
+
+@keyframes playerWatermarkMoveAlt{
+  0%{ transform: translate(0, 0); }
+  100%{ transform: translate(140px, -160px); }
 }
 
 @keyframes viewportWatermarkOne{
