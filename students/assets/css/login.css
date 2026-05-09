@@ -53,7 +53,7 @@ html[data-theme="dark"] .auth-formPane{
 .auth-step__line{
   height: 2px;
   flex: 1;
-  background: linear-gradient(90deg, var(--primary), rgba(20,86,71,0));
+  background: linear-gradient(90deg, var(--primary), transparent);
 }
 
 .auth-head{

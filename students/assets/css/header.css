@@ -10,7 +10,7 @@
   z-index: 9999;
 
   /* ✅ خلفية للمنطقة العلوية */
-  background: linear-gradient(180deg, var(--page-bg-alt), rgba(7,17,15,0));
+  background: linear-gradient(180deg, var(--page-bg-alt), var(--hdr-fade));
 }
 
 /* ✅ عشان محتوى الصفحة ما يطلعش تحت الهيدر */

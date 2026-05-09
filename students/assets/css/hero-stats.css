@@ -35,7 +35,7 @@ html[data-theme="dark"] .hero-stats__bg{
 
 .hero-stats__card{
   background:
-    radial-gradient(circle at top right, rgba(255,255,255,.16), transparent 24%),
+    radial-gradient(circle at top right, var(--surface-highlight), transparent 24%),
     linear-gradient(135deg, var(--primary-strong), var(--accent));
   border-radius: 22px;
   padding: 26px 18px;
@@ -105,5 +105,5 @@ html[data-theme="dark"] .hero-stats__bg{
     color: rgba(255,255,255,.09);
   }
 }
-.hero-stats__card{border:1px solid rgba(255,255,255,.08);overflow:hidden;backdrop-filter:blur(12px);}
-.hero-stats__card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at top right, rgba(255,255,255,.12), transparent 30%);}
+.hero-stats__card{border:1px solid var(--surface-highlight);overflow:hidden;backdrop-filter:blur(12px);}
+.hero-stats__card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at top right, var(--surface-highlight), transparent 30%);}

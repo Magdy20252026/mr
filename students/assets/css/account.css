@@ -68,10 +68,10 @@
   height: 38px;
   border-radius: 12px;
   object-fit: contain;
-  background: rgba(255,255,255,.94);
+  background: var(--card-bg-strong);
   flex: 0 0 auto;
 }
-html[data-theme="dark"] .acc-brand__logo{ background: rgba(255,255,255,.92); }
+html[data-theme="dark"] .acc-brand__logo{ background: var(--card-bg-strong); }
 
 .acc-brand__logoFallback{
   width: 38px;
@@ -171,7 +171,7 @@ html[data-theme="dark"] .acc-theme__knob{ transform: translateX(38px); }
   display:grid;
   place-items:center;
   background: var(--btn-solid-bg);
-  color: #fff;
+  color: var(--btn-solid-text);
   font-size: 11px;
   font-weight: 1000;
   border: 2px solid var(--page-bg);
@@ -629,13 +629,13 @@ html[data-theme="dark"] .acc-notifications-empty{
 /* ✅ Show full image without cropping */
 .acc-course__cover{
   background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,.18), transparent 40%),
+    radial-gradient(circle at 20% 20%, var(--surface-highlight-strong), transparent 40%),
     radial-gradient(circle at 80% 60%, var(--surface-strong), transparent 50%),
     linear-gradient(135deg, rgba(20,86,71,.08), rgba(20,86,71,.02));
 }
 html[data-theme="dark"] .acc-course__cover{
   background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,.10), transparent 40%),
+    radial-gradient(circle at 20% 20%, var(--surface-highlight), transparent 40%),
     radial-gradient(circle at 80% 60%, rgba(124,194,170,.12), transparent 48%),
     linear-gradient(135deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
 }

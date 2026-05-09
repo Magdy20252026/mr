@@ -19,6 +19,8 @@
   --surface-soft:rgba(20,86,71,.06);
   --surface-strong:rgba(20,86,71,.12);
   --surface-contrast:rgba(11,26,20,.82);
+  --surface-highlight:rgba(255,255,255,.18);
+  --surface-highlight-strong:rgba(255,255,255,.30);
 
   --text:#10271f;
   --muted:#5e7068;
@@ -61,10 +63,12 @@
   --hdr-bg:rgba(255,255,255,.78);
   --hdr-text: var(--text);
   --hdr-border: rgba(20,86,71,.10);
+  --hdr-fade:rgba(238,244,239,0);
 
   --page-glow-1:rgba(124,194,170,.18);
   --page-glow-2:rgba(45,122,101,.12);
   --page-glow-3:rgba(143,106,34,.10);
+  --page-glow-soft:rgba(124,194,170,.16);
   --grid-line:rgba(20,86,71,.035);
 
   color-scheme: light;
@@ -79,6 +83,8 @@ html[data-theme="dark"]{
   --surface-soft:rgba(124,194,170,.10);
   --surface-strong:rgba(124,194,170,.16);
   --surface-contrast:rgba(226,245,237,.10);
+  --surface-highlight:rgba(255,255,255,.12);
+  --surface-highlight-strong:rgba(255,255,255,.20);
 
   --text:#edf7f2;
   --muted:#9bb5ab;
@@ -119,10 +125,12 @@ html[data-theme="dark"]{
   --hdr-bg:rgba(9,22,19,.74);
   --hdr-text: var(--text);
   --hdr-border: rgba(205,229,218,.10);
+  --hdr-fade:rgba(7,17,15,0);
 
   --page-glow-1:rgba(45,122,101,.26);
   --page-glow-2:rgba(124,194,170,.14);
   --page-glow-3:rgba(100,126,203,.12);
+  --page-glow-soft:rgba(124,194,170,.16);
   --grid-line:rgba(152,217,194,.05);
 
   color-scheme: dark;
@@ -162,7 +170,7 @@ body::after{
   width:420px;
   height:420px;
   pointer-events:none;
-  background:radial-gradient(circle, rgba(124,194,170,.16), transparent 70%);
+  background:radial-gradient(circle, var(--page-glow-soft), transparent 70%);
   filter:blur(18px);
   opacity:.9;
 }

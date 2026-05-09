@@ -4,8 +4,8 @@
 
 .cta-banner__box{
   background:
-    radial-gradient(circle at top right, rgba(255,255,255,.18), transparent 24%),
-    radial-gradient(circle at bottom left, rgba(124,194,170,.16), transparent 24%),
+    radial-gradient(circle at top right, var(--surface-highlight-strong), transparent 24%),
+    radial-gradient(circle at bottom left, var(--page-glow-soft), transparent 24%),
     linear-gradient(135deg, #112b46, #145647 52%, #1d6b58);
   border-radius: 18px;
   padding: 46px 18px;
@@ -14,7 +14,7 @@
   color: #fff;
 
   box-shadow: var(--shadow-strong);
-  border:1px solid rgba(255,255,255,.08);
+  border:1px solid var(--surface-highlight);
   position:relative;
   overflow:hidden;
 }
@@ -44,11 +44,11 @@
   border-radius: 12px;
   text-decoration: none;
 
-  background: rgba(255,255,255,.12);
+  background: var(--surface-highlight);
   color: #fff;
 
   font-weight: 1000;
-  border: 2px solid rgba(255,255,255,.30);
+  border: 2px solid var(--surface-highlight-strong);
   backdrop-filter: blur(10px);
 
   transition: .2s ease;
@@ -57,6 +57,7 @@
 .cta-banner__btn:hover{
   transform: translateY(-1px);
   filter: brightness(1.02);
+  background: var(--surface-highlight-strong);
 }
 
 @media (max-width: 560px){

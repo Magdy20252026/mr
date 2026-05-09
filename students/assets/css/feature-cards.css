@@ -52,10 +52,10 @@
 
 .fc-card--dark{
   background:
-    radial-gradient(circle at top right, rgba(255,255,255,.16), transparent 26%),
+    radial-gradient(circle at top right, var(--surface-highlight), transparent 26%),
     linear-gradient(145deg, var(--primary-strong), var(--accent));
   color: #fff;
-  border-color: rgba(255,255,255,.18);
+  border-color: var(--surface-highlight-strong);
 }
 
 .fc-card__icon{
