@@ -121,7 +121,7 @@ body::before{
     linear-gradient(rgba(20,86,71,.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(20,86,71,.035) 1px, transparent 1px);
   background-size:24px 24px;
-  mask-image:radial-gradient(circle at center, black 25%, transparent 78%);
+  mask-image:radial-gradient(circle at center, #000000 25%, transparent 78%);
   opacity:.45;
 }
 
@@ -240,4 +240,34 @@ body::before{
   padding:14px 18px;
   border-radius:16px;
   font-size:16px;
+}
+
+.acc-courseHero,
+.acc-lecture,
+.acc-item,
+.acc-playerStage,
+.acc-pdfViewer{
+  position:relative;
+  overflow:hidden;
+}
+
+.acc-courseHero::before,
+.acc-lecture::before,
+.acc-item::before,
+.acc-playerStage::before,
+.acc-pdfViewer::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(135deg, rgba(20,86,71,.06), transparent 40%);
+}
+
+.acc-courseHero > *,
+.acc-lecture > *,
+.acc-item > *,
+.acc-playerStage > *,
+.acc-pdfViewer > *{
+  position:relative;
+  z-index:1;
 }

@@ -145,6 +145,3 @@
   .acc-courseHero__grid{ grid-template-columns: 1fr; }
   .acc-lecturesGrid{ grid-template-columns: 1fr; }
 }
-.acc-courseHero,.acc-lecture,.acc-item,.acc-playerStage,.acc-pdfViewer{position:relative;overflow:hidden;}
-.acc-courseHero::before,.acc-lecture::before,.acc-item::before,.acc-playerStage::before,.acc-pdfViewer::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg, rgba(20,86,71,.06), transparent 40%);}
-.acc-courseHero > *,.acc-lecture > *,.acc-item > *,.acc-playerStage > *,.acc-pdfViewer > *{position:relative;z-index:1;}
