@@ -111,7 +111,7 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
       <div class="acc-topbar__right">
         <a class="acc-brand" href="account_lecture.php?lecture_id=<?php echo (int)$lectureId; ?>" aria-label="العودة إلى صفحة المحاضرة">
           <?php if ($logoUrl): ?>
-            <img class="acc-brand__logo" src="<?php echo h($logoUrl); ?>" alt="Logo">
+            <img class="acc-brand__logo" src="<?php echo h($logoUrl); ?>" alt="شعار المنصة">
           <?php else: ?>
             <span class="acc-brand__logoFallback" aria-hidden="true"></span>
           <?php endif; ?>
@@ -303,6 +303,10 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
   const mobileLandscapeLockRetryMs = 220;
   const mobileLandscapeLockRetryCount = 4;
   const nativeStudentAppAutoUnlockDelayMs = 120;
+  const noticeAlertBorder = 'rgba(143,106,34,.34)';
+  const noticeAlertBackground = 'rgba(143,106,34,.10)';
+  const noticeInfoBorder = 'rgba(20,86,71,.35)';
+  const noticeInfoBackground = 'rgba(20,86,71,.08)';
   var fullscreenUnlockHandle = 0;
   var mobileSecureStateResizeHandle = 0;
   var mobileLandscapeLockHandle = 0;
@@ -318,8 +322,8 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
   function updateNotice(text, isError) {
     if (!noticeEl) return;
     noticeEl.textContent = text;
-    noticeEl.style.borderColor = isError ? 'rgba(207,42,55,.35)' : 'rgba(44,123,229,.35)';
-    noticeEl.style.background = isError ? 'rgba(207,42,55,.08)' : 'rgba(44,123,229,.08)';
+    noticeEl.style.borderColor = isError ? noticeAlertBorder : noticeInfoBorder;
+    noticeEl.style.background = isError ? noticeAlertBackground : noticeInfoBackground;
   }
 
   function renderPlaceholder(message) {

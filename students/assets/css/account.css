@@ -28,7 +28,7 @@
 }
 
 .acc-topbar__bar{
-  background: var(--card-bg);
+  background: linear-gradient(180deg, var(--card-bg), rgba(245,251,247,.96));
   border: 1px solid var(--border);
   border-radius: 18px;
   box-shadow: var(--shadow);
@@ -107,7 +107,7 @@ html[data-theme="dark"] .acc-brand__logo{ background: rgba(255,255,255,.88); }
   cursor: pointer;
   font-weight: 1000;
   z-index: 2;
-  color:#4b1b1f;
+  color:#145647;
 }
 .acc-theme__knob{
   position:absolute;
@@ -154,7 +154,7 @@ html[data-theme="dark"] .acc-theme__knob{ transform: translateX(38px); }
   border-radius: 999px;
   display:grid;
   place-items:center;
-  background: #cf2a37;
+  background: #1d6b58;
   color: #fff;
   font-size: 11px;
   font-weight: 1000;
@@ -169,15 +169,15 @@ html[data-theme="dark"] .acc-theme__knob{ transform: translateX(38px); }
   padding: 9px 12px;
   border-radius: 999px;
 
-  background: rgba(142,29,40,.10);
-  border: 1px solid rgba(142,29,40,.18);
+  background: rgba(20,86,71,.10);
+  border: 1px solid rgba(20,86,71,.18);
 
   font-weight: 1000;
   max-width: 420px;
   min-width: 0;
 }
 html[data-theme="dark"] .acc-student{
-  background: rgba(255,127,135,.12);
+  background: rgba(124,194,170,.14);
   border-color: rgba(255,255,255,.12);
 }
 .acc-student__name{
@@ -195,8 +195,8 @@ html[data-theme="dark"] .acc-student{
   padding: 9px 12px;
   border-radius: 999px;
 
-  background: rgba(11,123,122,.10);
-  border: 1px solid rgba(11,123,122,.18);
+  background: rgba(20,86,71,.10);
+  border: 1px solid rgba(20,86,71,.18);
 
   color: var(--text);
   font-weight: 1000;
@@ -204,7 +204,7 @@ html[data-theme="dark"] .acc-student{
   flex: 0 0 auto;
 }
 html[data-theme="dark"] .acc-pill{
-  background: rgba(23,168,173,.14);
+  background: rgba(124,194,170,.14);
   border-color: rgba(255,255,255,.10);
 }
 
@@ -257,18 +257,18 @@ html[data-theme="dark"] .acc-pill{
   text-overflow: ellipsis;
 }
 
-.acc-nav__item:hover{ background: rgba(0,0,0,.04); }
-html[data-theme="dark"] .acc-nav__item:hover{ background: rgba(255,255,255,.06); }
+.acc-nav__item:hover{ background: rgba(20,86,71,.06); }
+html[data-theme="dark"] .acc-nav__item:hover{ background: rgba(124,194,170,.10); }
 
 .acc-nav__item.is-active{
-  background: rgba(11,123,122,.12);
-  border-color: rgba(11,123,122,.22);
+  background: rgba(20,86,71,.12);
+  border-color: rgba(20,86,71,.22);
 }
 
 .acc-nav__item.is-danger{
-  background: rgba(207,42,55,.10);
-  border-color: rgba(207,42,55,.25);
-  color: #8e1d28;
+  background: rgba(143,106,34,.10);
+  border-color: rgba(143,106,34,.22);
+  color: #8f6a22;
 }
 
 .acc-nav__item.is-disabled{ opacity: .70; cursor: not-allowed; }
@@ -301,12 +301,12 @@ html[data-theme="dark"] .acc-nav__item:hover{ background: rgba(255,255,255,.06);
   border: 1px solid rgba(0,0,0,.08);
 }
 .acc-alert--error{
-  background: rgba(207,42,55,.10);
-  color: #8e1d28;
+  background: rgba(143,106,34,.10);
+  color: #8f6a22;
 }
 .acc-alert--success{
-  background: rgba(11,123,122,.10);
-  color: #0b7b7a;
+  background: rgba(20,86,71,.10);
+  color: #145647;
 }
 
 .acc-hero{
@@ -369,8 +369,8 @@ html[data-theme="dark"] .acc-nav__item:hover{ background: rgba(255,255,255,.06);
   border-radius: 16px;
   display:grid;
   place-items:center;
-  background: rgba(142,29,40,.10);
-  color:#8e1d28;
+  background: rgba(20,86,71,.10);
+  color:#145647;
   font-size: 20px;
   flex: 0 0 auto;
 }
@@ -430,8 +430,8 @@ html[data-theme="dark"] .acc-input{
   justify-content:center;
   padding: 12px 16px;
   border-radius: 14px;
-  border: 2px solid #8e1d28;
-  background: #8e1d28;
+  border: 2px solid #145647;
+  background: #145647;
   color: #fff;
   font-weight: 1000;
   cursor: pointer;
@@ -442,7 +442,7 @@ html[data-theme="dark"] .acc-input{
 
 .acc-btn--ghost{
   background: transparent;
-  color: #8e1d28;
+  color: #145647;
 }
 
 .acc-btn[disabled]{ opacity: .65; cursor: not-allowed; }
@@ -521,8 +521,8 @@ html[data-theme="dark"] .acc-notifications-empty{
 }
 
 .acc-notification--unread{
-  border-color:rgba(11,123,122,.35);
-  box-shadow:0 10px 22px rgba(11,123,122,.10);
+  border-color:rgba(20,86,71,.35);
+  box-shadow:0 10px 22px rgba(20,86,71,.10);
 }
 
 .acc-notification__head{
@@ -564,8 +564,8 @@ html[data-theme="dark"] .acc-notifications-empty{
   justify-content:center;
   padding:6px 10px;
   border-radius:999px;
-  background:rgba(11,123,122,.12);
-  color:#0b7b7a;
+  background:rgba(20,86,71,.12);
+  color:#145647;
   font-size:12px;
   font-weight:1000;
   white-space:nowrap;
@@ -693,16 +693,16 @@ html[data-theme="dark"] .acc-course__cover{
   border: 1px solid var(--border);
 }
 
-.acc-badge--free{ background: rgba(11,123,122,.12); color: var(--text); }
-.acc-badge--buy{ background: rgba(142,29,40,.10); color: var(--text); }
+.acc-badge--free{ background: rgba(20,86,71,.12); color: var(--text); }
+.acc-badge--buy{ background: rgba(20,86,71,.10); color: var(--text); }
 .acc-badge--att{ background: rgba(0,0,0,.06); color: var(--text); }
 
 .acc-price{ font-weight: 1000; }
 .acc-price__label{ color: var(--muted); margin-inline-end: 6px; }
 .acc-price__val{ font-weight: 1000; }
 
-.acc-price__val--before{ color: #cf2a37; }
-.acc-price__val--after{ color: #0b7b7a; }
+.acc-price__val--before{ color: #1d6b58; }
+.acc-price__val--after{ color: #145647; }
 
 .acc-price--muted{ color: var(--muted); font-weight: 900; }
 
@@ -822,3 +822,10 @@ html[data-theme="dark"] .acc-course__cover{
 @media (max-width: 420px){
   .acc-pill{ font-size: 13px; }
 }
+
+.acc-topbar__bar,.acc-sidebar,.acc-hero,.acc-card,.acc-stat,.acc-course,.acc-notifs{position:relative;overflow:hidden;}
+.acc-topbar__bar::before,.acc-sidebar::before,.acc-hero::before,.acc-card::before,.acc-stat::before,.acc-course::before,.acc-notifs::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg, rgba(20,86,71,.06), transparent 38%);}
+.acc-topbar__bar > *,.acc-sidebar > *,.acc-hero > *,.acc-card > *,.acc-stat > *,.acc-course > *,.acc-notifs > *{position:relative;z-index:1;}
+.acc-btn,.acc-btnx--solid,.acc-modal-btn--primary{box-shadow:0 12px 24px rgba(20,86,71,.18);}
+.acc-student,.acc-pill,.acc-badge--buy,.acc-badge--free{backdrop-filter:blur(8px);}
+.acc-nav__item.is-danger{font-weight:900;}

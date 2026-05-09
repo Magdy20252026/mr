@@ -268,7 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   if ($platLogoDb !== '') $platLogoUrl = student_public_asset_url($platLogoDb);
                 ?>
                 <?php if ($platLogoUrl): ?>
-                  <img src="<?php echo h($platLogoUrl); ?>" alt="Logo">
+                  <img src="<?php echo h($platLogoUrl); ?>" alt="شعار المنصة">
                 <?php else: ?>
                   <div class="auth-head__logoFallback" aria-hidden="true"></div>
                 <?php endif; ?>
@@ -398,7 +398,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="footer__grid">
           <div class="footer__col footer__col--left">
             <?php if ($footerLogoUrl): ?>
-              <img class="footer__logo" src="<?php echo h($footerLogoUrl); ?>" alt="Logo">
+              <img class="footer__logo" src="<?php echo h($footerLogoUrl); ?>" alt="شعار المنصة">
             <?php else: ?>
               <div class="footer__logoFallback" aria-hidden="true"></div>
             <?php endif; ?>

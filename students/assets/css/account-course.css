@@ -109,7 +109,7 @@
   display:grid;
   place-items:center;
   border: 1px solid var(--border);
-  background: rgba(207,42,55,.08);
+  background: rgba(20,86,71,.08);
 }
 
 .acc-lecture__meta{

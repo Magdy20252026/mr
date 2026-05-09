@@ -186,7 +186,7 @@ $pageTitle = $config ? ($config['label'] . ' - ' . $platformName) : ('المحت
     <div class="ass-top">
       <a class="ass-brand" href="account.php?page=home" aria-label="<?php echo h($platformName); ?>">
         <?php if ($logoUrl): ?>
-          <img src="<?php echo h($logoUrl); ?>" alt="Logo">
+          <img src="<?php echo h($logoUrl); ?>" alt="شعار المنصة">
         <?php else: ?>
           <span class="acc-brand__logoFallback" aria-hidden="true"></span>
         <?php endif; ?>
