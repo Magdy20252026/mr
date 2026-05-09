@@ -25,7 +25,7 @@ if (!function_exists('load_database_config')) {
 
     foreach (array_keys($config) as $key) {
       $value = getenv($key);
-      if (is_string($value) && $value !== '') {
+      if ($value !== false && $value !== '') {
         $config[$key] = $value;
       }
     }

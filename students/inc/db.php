@@ -3,7 +3,12 @@ require __DIR__ . '/config.php';
 
 date_default_timezone_set(APP_TIMEZONE);
 
-if (DB_HOST === '' || DB_NAME === '' || DB_USER === '' || DB_PASS === '') {
+if (
+  !defined('DB_HOST') || DB_HOST === '' ||
+  !defined('DB_NAME') || DB_NAME === '' ||
+  !defined('DB_USER') || DB_USER === '' ||
+  !defined('DB_PASS') || DB_PASS === ''
+) {
   http_response_code(500);
   error_log('Database configuration is incomplete.');
   exit('Service temporarily unavailable.');
