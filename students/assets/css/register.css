@@ -203,14 +203,14 @@ html[data-theme="dark"] .input{
 
 /* Alerts */
 .auth-alert{
-  background: rgba(20,86,71,.08);
-  border: 1px solid rgba(20,86,71,.30);
+  background: rgba(143,106,34,.10);
+  border: 1px solid rgba(143,106,34,.28);
   border-radius: 16px;
   padding: 12px 14px;
   margin-bottom: 12px;
 }
 html[data-theme="dark"] .auth-alert{
-  background: rgba(20,86,71,.10);
+  background: rgba(240,201,117,.14);
   border-color: rgba(255,255,255,.12);
 }
 .auth-alert__title{ font-weight:1000; margin-bottom:8px; }

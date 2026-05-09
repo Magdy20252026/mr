@@ -301,8 +301,8 @@ html[data-theme="dark"] .acc-nav__item:hover{ background: rgba(124,194,170,.10);
   border: 1px solid rgba(0,0,0,.08);
 }
 .acc-alert--error{
-  background: rgba(20,86,71,.10);
-  color: #145647;
+  background: rgba(143,106,34,.10);
+  color: #8f6a22;
 }
 .acc-alert--success{
   background: rgba(20,86,71,.10);

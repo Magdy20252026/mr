@@ -318,8 +318,8 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
   function updateNotice(text, isError) {
     if (!noticeEl) return;
     noticeEl.textContent = text;
-    noticeEl.style.borderColor = isError ? 'rgba(20,86,71,.35)' : 'rgba(20,86,71,.35)';
-    noticeEl.style.background = isError ? 'rgba(20,86,71,.08)' : 'rgba(20,86,71,.08)';
+    noticeEl.style.borderColor = isError ? 'rgba(143,106,34,.34)' : 'rgba(20,86,71,.35)';
+    noticeEl.style.background = isError ? 'rgba(143,106,34,.10)' : 'rgba(20,86,71,.08)';
   }
 
   function renderPlaceholder(message) {
