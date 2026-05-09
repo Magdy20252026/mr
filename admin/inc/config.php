@@ -1,11 +1,14 @@
 <?php
+require_once dirname(__DIR__, 2) . '/inc/db_config.php';
+
+$dbConfig = load_database_config();
 
 // Database config
-define('DB_HOST', 'sql211.infinityfree.com');
-define('DB_NAME', 'if0_41288472_thelegendedu_0');
-define('DB_USER', 'if0_41288472');
-define('DB_PASS', 'h4c4tpciQbPNV9');
-define('DB_PORT', '3306');
+define('DB_HOST', $dbConfig['DB_HOST']);
+define('DB_NAME', $dbConfig['DB_NAME']);
+define('DB_USER', $dbConfig['DB_USER']);
+define('DB_PASS', $dbConfig['DB_PASS']);
+define('DB_PORT', $dbConfig['DB_PORT']);
 
 // App
 define('APP_TIMEZONE', 'Africa/Cairo');
