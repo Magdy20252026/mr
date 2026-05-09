@@ -11,7 +11,7 @@ if (!function_exists('load_database_config')) {
       'DB_PORT' => '3306',
     ];
 
-    $localConfigPath = dirname(__DIR__) . '/config.local.php';
+    $localConfigPath = __DIR__ . '/../config.local.php';
     if (is_file($localConfigPath) && is_readable($localConfigPath)) {
       $localConfig = require $localConfigPath;
       if (is_array($localConfig)) {

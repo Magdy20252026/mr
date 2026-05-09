@@ -5,7 +5,8 @@ date_default_timezone_set(APP_TIMEZONE);
 
 if (DB_HOST === '' || DB_NAME === '' || DB_USER === '' || DB_PASS === '') {
   http_response_code(500);
-  exit('Database configuration is incomplete.');
+  error_log('Database configuration is incomplete.');
+  exit('Service temporarily unavailable.');
 }
 
 $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=utf8mb4";
