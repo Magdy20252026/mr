@@ -9,6 +9,7 @@
   --brand-soft:rgba(20,86,71,.16);
   --brand-border:rgba(20,86,71,.24);
   --brand-glow:rgba(20,86,71,.18);
+  --pattern-mask:#000000;
 
   --page-bg:#eef4ef;
   --card-bg:#ffffff;
@@ -121,7 +122,7 @@ body::before{
     linear-gradient(rgba(20,86,71,.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(20,86,71,.035) 1px, transparent 1px);
   background-size:24px 24px;
-  mask-image:radial-gradient(circle at center, #000000 25%, transparent 78%);
+  mask-image:radial-gradient(circle at center, var(--pattern-mask) 25%, transparent 78%);
   opacity:.45;
 }
 

@@ -266,9 +266,9 @@ html[data-theme="dark"] .acc-nav__item:hover{ background: rgba(124,194,170,.10);
 }
 
 .acc-nav__item.is-danger{
-  background: rgba(20,86,71,.10);
-  border-color: rgba(20,86,71,.25);
-  color: #145647;
+  background: rgba(143,106,34,.10);
+  border-color: rgba(143,106,34,.22);
+  color: #8f6a22;
 }
 
 .acc-nav__item.is-disabled{ opacity: .70; cursor: not-allowed; }

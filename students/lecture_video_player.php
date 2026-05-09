@@ -303,8 +303,8 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
   const mobileLandscapeLockRetryMs = 220;
   const mobileLandscapeLockRetryCount = 4;
   const nativeStudentAppAutoUnlockDelayMs = 120;
-  const noticeErrorBorder = 'rgba(143,106,34,.34)';
-  const noticeErrorBackground = 'rgba(143,106,34,.10)';
+  const noticeAlertBorder = 'rgba(143,106,34,.34)';
+  const noticeAlertBackground = 'rgba(143,106,34,.10)';
   const noticeInfoBorder = 'rgba(20,86,71,.35)';
   const noticeInfoBackground = 'rgba(20,86,71,.08)';
   var fullscreenUnlockHandle = 0;
@@ -322,8 +322,8 @@ if ($lecCssVer === '' || $lecCssVer === '0') $lecCssVer = (string)time();
   function updateNotice(text, isError) {
     if (!noticeEl) return;
     noticeEl.textContent = text;
-    noticeEl.style.borderColor = isError ? noticeErrorBorder : noticeInfoBorder;
-    noticeEl.style.background = isError ? noticeErrorBackground : noticeInfoBackground;
+    noticeEl.style.borderColor = isError ? noticeAlertBorder : noticeInfoBorder;
+    noticeEl.style.background = isError ? noticeAlertBackground : noticeInfoBackground;
   }
 
   function renderPlaceholder(message) {
